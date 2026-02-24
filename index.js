@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const rateLimit = require('express-rate-limit')
 const {pool} = require('./src/db')
 const { sign, authMiddleware } = require('./src/auth')
 const { router: productosRouter } = require('./src/routes/productos.routes')
@@ -12,6 +13,14 @@ const allowed = [
   'http://localhost:3000',
   'http://localhost:3001'
 ]
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: 'Demasiadasd solicitudes, por favor intente de nuevo más tarde.'
+})
+
+app.use(limiter)
 
 app.use(cors({
   origin: function(origin, cb) {
