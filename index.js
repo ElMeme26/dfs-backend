@@ -11,7 +11,8 @@ const app = express()
 
 const allowed = [
   'http://localhost:3000',
-  'http://localhost:3001'
+  'http://localhost:3001',
+  'https://dfs-frontend-omega.vercel.app/'
 ]
 
 const limiter = rateLimit({
